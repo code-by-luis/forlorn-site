@@ -2,11 +2,39 @@
 
 import { useState, useMemo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import type { Variants } from "framer-motion";
 
-const IP = "65.108.9.141:2302"; // TODO: put your real IP:PORT
+const IP = "65.108.9.141:2302";
 const DISCORD_URL = "https://discord.gg/yourinvite"; // TODO
 
 // --- Types & Data -----------------------------------------------------------
+
+// Easing curve (cubic-bezier)
+const easeOutExpo: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+export const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: easeOutExpo },
+  },
+};
+
+export const fadeUpStrong: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: easeOutExpo },
+  },
+};
+
+export const stagger: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+};
+
 
 type RuleSection = { title: string; items: string[] };
 
@@ -177,22 +205,6 @@ function SectionCard({
   );
 }
 
-const fadeUpStrong = {
-  hidden: { opacity: 0, y: 40 },
-  show:   { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-};
-
-
-// Motion variants
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  show:   { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-};
-
-const stagger = {
-  hidden: {},
-  show:   { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
-};
 
 // Animated section wrapper
 function AnimatedSection({
@@ -412,7 +424,6 @@ export default function Page() {
 
       <SectionDivider />
 
-      {/* Rules — masonry so neighbors don't expand; extra left padding for bullets */}
       <AnimatedSection id="about" className="relative mx-auto max-w-6xl px-4 py-24">
       <h2 className="text-3xl font-bold">Rules</h2>
         <p className="mt-3 text-zinc-400">
@@ -421,7 +432,6 @@ export default function Page() {
           If you are unsure about anything, please ask a member of staff.
         </p>
 
-        {/* Use CSS columns for independent heights (no row syncing) */}
         <div className="mt-8 columns-1 md:columns-2 gap-4">
           {RULE_SECTIONS.map(({ title, items }) => (
             <details
