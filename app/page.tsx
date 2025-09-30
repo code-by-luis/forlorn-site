@@ -292,7 +292,7 @@ export default function Page() {
       <section
         id="top"
         className="
-          relative overflow-hidden flex items-center touch-pan-y
+          relative flex items-center overflow-x-clip touch-pan-y
           min-h-[calc(100vh-4rem)]
           sm:min-h-[calc(100dvh-4rem)]
           md:min-h-[calc(100svh-4rem)]
@@ -301,7 +301,7 @@ export default function Page() {
 
         <ParallaxBG />
 
-        <div className="mx-auto max-w-6xl px-4 py-16 md:py-28 text-center">
+        <div className="mx-auto max-w-6xl w-full px-4 py-16 md:py-28 text-center">
           <motion.div variants={stagger} initial="hidden" animate="show">
             <motion.div variants={fadeUp}>
               <Pill>High Loot • PvP • Raiding</Pill>
@@ -341,14 +341,16 @@ export default function Page() {
               Direct connect in DayZ using the IP & port, or search us on DZSA
             </motion.p>
 
-            {/* Selling points marquee — seamless loop (unchanged markup) */}
-            <motion.div variants={fadeUp} className="mt-10 overflow-hidden">
-              <div className="relative">
-                <div className="marquee flex gap-6 whitespace-nowrap will-change-transform">
-                  {["High Loot", "PvP-Focused", "Weekend Raiding", "Trader Economy", "Dynamic PvE", "Custom Map Edits", "Squad Play"].map((tag, i) => (
+            <motion.div variants={fadeUp} className="mt-10 w-full overflow-hidden">
+              <div
+                className="relative"
+                style={{ contain: "layout" }}   // stop intrinsic width inflation on mobile
+              >
+                <div className="marquee inline-flex gap-6 whitespace-nowrap will-change-transform">
+                  {["High Loot","PvP-Focused","Weekend Raiding","Trader Economy","Dynamic PvE","Custom Map Edits","Squad Play"].map((tag, i) => (
                     <span key={`a-${i}`} className="inline-block text-sm text-zinc-300/80">• {tag} •</span>
                   ))}
-                  {["High Loot", "PvP-Focused", "Weekend Raiding", "Trader Economy", "Dynamic PvE", "Custom Map Edits", "Squad Play"].map((tag, i) => (
+                  {["High Loot","PvP-Focused","Weekend Raiding","Trader Economy","Dynamic PvE","Custom Map Edits","Squad Play"].map((tag, i) => (
                     <span key={`b-${i}`} className="inline-block text-sm text-zinc-300/80">• {tag} •</span>
                   ))}
                 </div>
@@ -427,7 +429,7 @@ export default function Page() {
 
       <SectionDivider />
 
-      <AnimatedSection id="about" className="relative mx-auto max-w-6xl px-4 py-24">
+      <AnimatedSection id="rules" className="relative mx-auto max-w-6xl px-4 py-24">
       <h2 className="text-3xl font-bold">Rules</h2>
         <p className="mt-3 text-zinc-400">
           These rules are designed to ensure fair play and a happy playerbase. Staff reserve the right to punish anything
@@ -459,7 +461,7 @@ export default function Page() {
       <SectionDivider />
 
       {/* Mods & Features */}
-      <AnimatedSection id="about" className="relative mx-auto max-w-6xl px-4 py-24">
+      <AnimatedSection id="features" className="relative mx-auto max-w-6xl px-4 py-24">
       <h2 className="text-3xl font-bold">Mods & Features</h2>
         <p className="mt-2 text-zinc-400">A quick look at what Forlorn runs.</p>
 
@@ -518,7 +520,7 @@ export default function Page() {
 
 
       {/* Join */}
-      <AnimatedSection id="about" className="relative mx-auto max-w-6xl px-4 py-24">
+      <AnimatedSection id="join" className="relative mx-auto max-w-6xl px-4 py-24">
        <h2 className="text-3xl font-bold">Join the Server</h2>
         <ol className="mt-4 list-decimal pl-5 text-zinc-300/90 space-y-2">
           <li>Open DayZ → Select Direct Connect.</li>
