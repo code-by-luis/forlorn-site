@@ -3,9 +3,9 @@ import "./globals.css";
 
 
 export const metadata = {
-  title: "Your DayZ Server",
-  description: "Dayz server.",
-  metadataBase: new URL("https://dayz.derwydd.net"),
+  title: "FORLORN",
+  description: "Deerisle PVP",
+  metadataBase: new URL("https://forlorn.uk"),
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
