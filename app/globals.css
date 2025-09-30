@@ -26,3 +26,20 @@ html {
 body {
   background: radial-gradient(1200px 600px at 20% -10%, #1a1036 0, #0b0a1a 55%, #060611 100%);
 }
+
+/* Prevent accidental horizontal scroll on mobile */
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+  /* avoids widening from transforms/backgrounds */
+}
+
+/* Safety: make sure media never forces width */
+img,
+video,
+svg,
+canvas {
+  max-width: 100%;
+  height: auto;
+}

@@ -233,7 +233,7 @@ function ScrollProgress() {
   );
 }
 
-// Parallax background blobs (hero)
+// Parallax background blobs (hero) — static on mobile, parallax on md+
 function ParallaxBG() {
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 600], [0, -40]);
@@ -241,17 +241,23 @@ function ParallaxBG() {
 
   return (
     <>
+      {/* Mobile: static layers (no transforms for jank-free render) */}
+      <div className="absolute inset-0 -z-10 opacity-60 md:hidden bg-[radial-gradient(800px_400px_at_80%_-10%,#d946ef33,transparent),radial-gradient(900px_500px_at_20%_10%,#22d3ee22,transparent)]" />
+      <div className="absolute inset-0 -z-10 md:hidden bg-[linear-gradient(#ffffff08_1px,transparent_1px),linear-gradient(90deg,#ffffff08_1px,transparent_1px)] bg-[size:32px_32px]" />
+
+      {/* md+: parallax motion layers */}
       <motion.div
         style={{ y: y1 }}
-        className="absolute inset-0 -z-10 opacity-60 bg-[radial-gradient(800px_400px_at_80%_-10%,#d946ef33,transparent),radial-gradient(900px_500px_at_20%_10%,#22d3ee22,transparent)]"
+        className="absolute inset-0 -z-10 hidden md:block opacity-60 bg-[radial-gradient(800px_400px_at_80%_-10%,#d946ef33,transparent),radial-gradient(900px_500px_at_20%_10%,#22d3ee22,transparent)]"
       />
       <motion.div
         style={{ y: y2 }}
-        className="absolute inset-0 -z-10 bg-[linear-gradient(#ffffff08_1px,transparent_1px),linear-gradient(90deg,#ffffff08_1px,transparent_1px)] bg-[size:32px_32px]"
+        className="absolute inset-0 -z-10 hidden md:block bg-[linear-gradient(#ffffff08_1px,transparent_1px),linear-gradient(90deg,#ffffff08_1px,transparent_1px)] bg-[size:32px_32px]"
       />
     </>
   );
 }
+
 
 
 // --- Page -------------------------------------------------------------------
@@ -285,8 +291,14 @@ export default function Page() {
       {/* Hero */}
       <section
         id="top"
-        className="relative overflow-hidden min-h-[calc(100svh-4rem)] flex items-center"
+        className="
+          relative overflow-hidden flex items-center touch-pan-y
+          min-h-[calc(100vh-4rem)]
+          sm:min-h-[calc(100dvh-4rem)]
+          md:min-h-[calc(100svh-4rem)]
+        "
       >
+
         <ParallaxBG />
 
         <div className="mx-auto max-w-6xl px-4 py-16 md:py-28 text-center">
