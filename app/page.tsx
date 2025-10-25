@@ -127,14 +127,14 @@ function SectionDivider() {
       className="relative h-px w-full my-10 overflow-hidden border-t border-white/10"
       aria-hidden
     >
-      <div className="absolute inset-0 opacity-50 bg-[radial-gradient(200px_50px_at_20%_50%,#d946ef44,transparent),radial-gradient(200px_50px_at_80%_50%,#22d3ee44,transparent)]" />
+      <div className="absolute inset-0 opacity-50 bg-[radial-gradient(200px_50px_at_20%_50%,#d3181844,transparent),radial-gradient(200px_50px_at_80%_50%,#ff4d4d44,transparent)]" />
     </div>
   );
 }
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border border-fuchsia-500/20 bg-white/5 p-4">
+    <div className="rounded-xl border border-[#d31818]/20 bg-white/5 p-4">
       <div className="text-2xl font-bold tracking-tight">{value}</div>
       <div className="text-xs text-zinc-400 mt-1">{label}</div>
     </div>
@@ -147,7 +147,7 @@ function Feature({ title, desc }: { title: string; desc: string }) {
       variants={fadeUp}
       whileHover={{ y: -3 }}
       transition={{ type: "spring", stiffness: 200, damping: 20 }}
-      className="rounded-2xl border border-fuchsia-500/20 bg-white/5 p-5 ring-0 hover:ring-1 hover:ring-fuchsia-400/30"
+      className="rounded-2xl border border-[#d31818]/20 bg-white/5 p-5 ring-0 hover:ring-1 hover:ring-[#d31818]/30"
     >
       <h3 className="font-semibold">{title}</h3>
       <p className="text-sm text-zinc-300/90 mt-2">{desc}</p>
@@ -157,7 +157,7 @@ function Feature({ title, desc }: { title: string; desc: string }) {
 
 function Pill({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-fuchsia-500/30 bg-fuchsia-500/10 px-3 py-1 text-xs text-fuchsia-200">
+    <span className="inline-flex items-center gap-2 rounded-full border border-[#d31818]/30 bg-[#d31818]/10 px-3 py-1 text-xs text-[#ffb3b3]">
       {children}
     </span>
   );
@@ -175,9 +175,9 @@ function SectionCard({
       variants={fadeUp}
       whileHover={{ y: -3 }}
       transition={{ type: "spring", stiffness: 200, damping: 20 }}
-      className="rounded-2xl border border-fuchsia-500/20 bg-white/5 p-5 ring-0 hover:ring-1 hover:ring-cyan-400/30"
+      className="rounded-2xl border border-[#d31818]/20 bg-white/5 p-5 ring-0 hover:ring-1 hover:ring-[#ff4d4d]/30"
     >
-      <h3 className="text-lg font-semibold text-fuchsia-300">{title}</h3>
+      <h3 className="text-lg font-semibold text-[#ff6b6b]">{title}</h3>
       <ul className="mt-4 grid sm:grid-cols-2 gap-2">
         {items.map((item) => (
           <motion.li
@@ -186,7 +186,7 @@ function SectionCard({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.25 }}
-            className="rounded-xl border border-fuchsia-500/20 bg-black/20 px-3 py-2 text-sm text-zinc-300/90"
+            className="rounded-xl border border-[#d31818]/20 bg-black/20 px-3 py-2 text-sm text-zinc-300/90"
           >
             {item}
           </motion.li>
@@ -228,7 +228,7 @@ function ScrollProgress() {
   return (
     <motion.div
       style={{ scaleX }}
-      className="fixed left-0 right-0 top-0 h-[2px] origin-left z-[60] bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-fuchsia-500"
+      className="fixed left-0 right-0 top-0 h-[2px] origin-left z-[60] bg-gradient-to-r from-[#d31818] via-[#ff4d4d] to-[#d31818]"
     />
   );
 }
@@ -242,13 +242,13 @@ function ParallaxBG() {
   return (
     <>
       {/* Mobile: static layers (no transforms for jank-free render) */}
-      <div className="absolute inset-0 -z-10 opacity-60 md:hidden bg-[radial-gradient(800px_400px_at_80%_-10%,#d946ef33,transparent),radial-gradient(900px_500px_at_20%_10%,#22d3ee22,transparent)]" />
+      <div className="absolute inset-0 -z-10 opacity-60 md:hidden bg-[radial-gradient(800px_400px_at_80%_-10%,#d3181833,transparent),radial-gradient(900px_500px_at_20%_10%,#ff4d4d22,transparent)]" />
       <div className="absolute inset-0 -z-10 md:hidden bg-[linear-gradient(#ffffff08_1px,transparent_1px),linear-gradient(90deg,#ffffff08_1px,transparent_1px)] bg-[size:32px_32px]" />
 
       {/* md+: parallax motion layers */}
       <motion.div
         style={{ y: y1 }}
-        className="absolute inset-0 -z-10 hidden md:block opacity-60 bg-[radial-gradient(800px_400px_at_80%_-10%,#d946ef33,transparent),radial-gradient(900px_500px_at_20%_10%,#22d3ee22,transparent)]"
+        className="absolute inset-0 -z-10 hidden md:block opacity-60 bg-[radial-gradient(800px_400px_at_80%_-10%,#d3181833,transparent),radial-gradient(900px_500px_at_20%_10%,#ff4d4d22,transparent)]"
       />
       <motion.div
         style={{ y: y2 }}
@@ -273,17 +273,23 @@ export default function Page() {
   const year = useMemo(() => new Date().getFullYear(), []);
 
   return (
-    <>
-    <ScrollProgress />
+    <div className="bg-[#121212] text-white">
+      <ScrollProgress />
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-black/50 backdrop-blur border-b border-fuchsia-500/20">
+      <header className="sticky top-0 z-50 bg-black/50 backdrop-blur border-b border-[#d31818]/20">
         <nav className="mx-auto max-w-6xl px-4 py-3 flex items-center gap-6">
-          <a href="#top" className="font-mono tracking-widest text-fuchsia-300">FORLORN</a>
+          <a href="#top" aria-label="FORLORN home" className="flex items-center">
+            <img
+              src="/forlorn_straight.svg"
+              alt="FORLORN"
+              style={{ height: "30px", width: "auto" }}
+            />
+          </a>
           <div className="ml-auto flex gap-4 text-sm">
-            <a href="#about" className="hover:text-fuchsia-300">About</a>
-            <a href="#rules" className="hover:text-fuchsia-300">Rules</a>
-            <a href="#features" className="hover:text-fuchsia-300">Features</a>
-            <a href="#join" className="hover:text-fuchsia-300">Join</a>
+            <a href="#about" className="hover:text-[#ff6b6b]">About</a>
+            <a href="#rules" className="hover:text-[#ff6b6b]">Rules</a>
+            <a href="#features" className="hover:text-[#ff6b6b]">Features</a>
+            <a href="#join" className="hover:text-[#ff6b6b]">Join</a>
           </div>
         </nav>
       </header>
@@ -298,7 +304,6 @@ export default function Page() {
           md:min-h-[calc(100svh-4rem)]
         "
       >
-
         <ParallaxBG />
 
         <div className="mx-auto max-w-6xl w-full px-4 py-16 md:py-28 text-center">
@@ -307,12 +312,15 @@ export default function Page() {
               <Pill>High Loot • PvP • Raiding</Pill>
             </motion.div>
 
-            <motion.h1
+            <motion.h1 variants={fadeUp} className="sr-only">FORLORN</motion.h1>
+            <motion.img
               variants={fadeUp}
-              className="text-5xl md:text-7xl font-extrabold tracking-tight mt-4"
-            >
-              FORLORN
-            </motion.h1>
+              src="/forlorn_tall.svg"
+              alt="FORLORN"
+              className="mt-4 mx-auto block"
+              style={{ height: "300px", width: "auto" }}
+              loading="eager"
+            />
 
             <motion.p variants={fadeUp} className="mt-6 text-zinc-300/90 max-w-2xl mx-auto">
               Deerisle Squad PvP
@@ -321,7 +329,7 @@ export default function Page() {
             <motion.div variants={fadeUp} className="mt-8 flex items-center justify-center gap-3">
               <button
                 onClick={copy}
-                className="rounded-2xl px-4 py-2 border border-fuchsia-400/50 hover:border-fuchsia-400 transition"
+                className="rounded-2xl px-4 py-2 border border-[#d31818]/50 hover:border-[#d31818] transition"
                 aria-label="Copy server IP"
                 title="Copy server IP"
               >
@@ -329,7 +337,7 @@ export default function Page() {
               </button>
               <a
                 href={DISCORD_URL}
-                className="rounded-2xl px-4 py-2 bg-fuchsia-600/80 hover:bg-fuchsia-600 transition"
+                className="rounded-2xl px-4 py-2 bg-[#d31818]/90 hover:bg-[#d31818] transition text-white"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -368,69 +376,67 @@ export default function Page() {
         </div>
       </section>
 
-
       <AnimatedSection id="about" className="relative mx-auto max-w-6xl px-4 py-24">
-      <div className="absolute inset-0 -z-10 opacity-30 bg-[radial-gradient(1000px_600px_at_10%_20%,#d946ef22,transparent),radial-gradient(1000px_600px_at_90%_40%,#22d3ee22,transparent)]" />
+        <div className="absolute inset-0 -z-10 opacity-30 bg-[radial-gradient(1000px_600px_at_10%_20%,#d3181822,transparent),radial-gradient(1000px_600px_at_90%_40%,#ff4d4d22,transparent)]" />
 
-      <div className="grid lg:grid-cols-[1.2fr,1fr] gap-10 items-start">
-        <div>
-          <motion.h2 variants={fadeUpStrong} className="text-3xl md:text-4xl font-bold mt-4">
-            About Forlorn
-          </motion.h2>
+        <div className="grid lg:grid-cols-[1.2fr,1fr] gap-10 items-start">
+          <div>
+            <motion.h2 variants={fadeUpStrong} className="text-3xl md:text-4xl font-bold mt-4">
+              About Forlorn
+            </motion.h2>
 
-          <motion.p variants={fadeUpStrong} className="mt-4 text-zinc-300/90 text-lg leading-relaxed">
-            <span className="font-semibold">Forlorn</span> is a high-loot, PvP-first DayZ server where survival stays simple and the
-            fights stay intense. Gear up fast- then dive into firefights, ambushes, and full-scale raids. Weekend raiding and
-            squad-based basebuilding keep the stakes high, while rare <span className="italic">tappers</span> reward those who earn
-            them. Dynamic PvE encounters, infected zones, and AI threats keep the world alive, backed by a custom trader economy
-            and unique map edits with fresh POIs and hidden stashes to fight over.
-          </motion.p>
+            <motion.p variants={fadeUpStrong} className="mt-4 text-zinc-300/90 text-lg leading-relaxed">
+              <span className="font-semibold">Forlorn</span> is a high-loot, PvP-first DayZ server where survival stays simple and the
+              fights stay intense. Gear up fast- then dive into firefights, ambushes, and full-scale raids. Weekend raiding and
+              squad-based basebuilding keep the stakes high, while rare <span className="italic">tappers</span> reward those who earn
+              them. Dynamic PvE encounters, infected zones, and AI threats keep the world alive, backed by a custom trader economy
+              and unique map edits with fresh POIs and hidden stashes to fight over.
+            </motion.p>
 
-          <motion.div variants={fadeUp} className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-3">
-            <Stat label="Loot Rate" value="High" />
-            <Stat label="Raiding Window" value="Fri–Sun" />
-            <Stat label="Squad Size" value="6" />
-          </motion.div>
+            <motion.div variants={fadeUp} className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <Stat label="Loot Rate" value="High" />
+              <Stat label="Raiding Window" value="Fri–Sun" />
+              <Stat label="Squad Size" value="6" />
+            </motion.div>
 
-          <motion.ul variants={fadeUp} className="mt-8 grid sm:grid-cols-2 gap-2 text-sm">
-            {[
-              "Guns spawn loaded & clean",
-              "Casual → hardcore PvP",
-              "Survival made simple",
-              "Weekend raiding",
-              "One-shot tappers (rare)",
-              "Dynamic PvE & AI",
-              "Trader & custom economy",
-              "Custom POIs & stashes",
-            ].map((item) => (
-              <motion.li
-                key={item}
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.25 }}
-                className="rounded-xl border border-fuchsia-500/20 bg-white/5 px-3 py-2 text-zinc-300/90"
-              >
-                {item}
-              </motion.li>
-            ))}
-          </motion.ul>
+            <motion.ul variants={fadeUp} className="mt-8 grid sm:grid-cols-2 gap-2 text-sm">
+              {[
+                "Guns spawn loaded & clean",
+                "Casual → hardcore PvP",
+                "Survival made simple",
+                "Weekend raiding",
+                "One-shot tappers (rare)",
+                "Dynamic PvE & AI",
+                "Trader & custom economy",
+                "Custom POIs & stashes",
+              ].map((item) => (
+                <motion.li
+                  key={item}
+                  initial={{ opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.25 }}
+                  className="rounded-xl border border-[#d31818]/20 bg-white/5 px-3 py-2 text-zinc-300/90"
+                >
+                  {item}
+                </motion.li>
+              ))}
+            </motion.ul>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-4">
+            <Feature title="PvP-Centric" desc="Designed for firefights, ambushes, and all-out warfare. Built for both casual and hardcore players." />
+            <Feature title="Trader Economy" desc="Buy, sell, and gear up quickly with a custom economy tuned for constant action." />
+            <Feature title="Dynamic PvE" desc="Infected zones, AI threats, and events keep the island alive between raids." />
+            <Feature title="Custom Map Edits" desc="Overhauled POIs and hidden stashes create new hotspots and flanking routes." />
+          </div>
         </div>
-
-        <div className="grid sm:grid-cols-2 gap-4">
-          <Feature title="PvP-Centric" desc="Designed for firefights, ambushes, and all-out warfare. Built for both casual and hardcore players." />
-          <Feature title="Trader Economy" desc="Buy, sell, and gear up quickly with a custom economy tuned for constant action." />
-          <Feature title="Dynamic PvE" desc="Infected zones, AI threats, and events keep the island alive between raids." />
-          <Feature title="Custom Map Edits" desc="Overhauled POIs and hidden stashes create new hotspots and flanking routes." />
-        </div>
-      </div>
-    </AnimatedSection>
-
+      </AnimatedSection>
 
       <SectionDivider />
 
       <AnimatedSection id="rules" className="relative mx-auto max-w-6xl px-4 py-24">
-      <h2 className="text-3xl font-bold">Rules</h2>
+        <h2 className="text-3xl font-bold">Rules</h2>
         <p className="mt-3 text-zinc-400">
           These rules are designed to ensure fair play and a happy playerbase. Staff reserve the right to punish anything
           that is deemed to break the spirit of these rules, even if compliant by some loophole or technicality.
@@ -441,10 +447,10 @@ export default function Page() {
           {RULE_SECTIONS.map(({ title, items }) => (
             <details
               key={title}
-              className="group mb-4 break-inside-avoid rounded-2xl border border-fuchsia-500/20 bg-white/5"
+              className="group mb-4 break-inside-avoid rounded-2xl border border-[#d31818]/20 bg-white/5"
             >
               <summary className="cursor-pointer select-none list-none px-6 py-5 flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-fuchsia-300">{title}</h3>
+                <h3 className="text-lg font-semibold text-[#ff6b6b]">{title}</h3>
                 <span className="ml-4 text-zinc-400 transition group-open:rotate-180">⌄</span>
               </summary>
 
@@ -462,7 +468,7 @@ export default function Page() {
 
       {/* Mods & Features */}
       <AnimatedSection id="features" className="relative mx-auto max-w-6xl px-4 py-24">
-      <h2 className="text-3xl font-bold">Mods & Features</h2>
+        <h2 className="text-3xl font-bold">Mods & Features</h2>
         <p className="mt-2 text-zinc-400">A quick look at what Forlorn runs.</p>
 
         <div className="mt-6 grid lg:grid-cols-2 gap-6">
@@ -518,10 +524,9 @@ export default function Page() {
 
       <SectionDivider />
 
-
       {/* Join */}
       <AnimatedSection id="join" className="relative mx-auto max-w-6xl px-4 py-24">
-       <h2 className="text-3xl font-bold">Join the Server</h2>
+        <h2 className="text-3xl font-bold">Join the Server</h2>
         <ol className="mt-4 list-decimal pl-5 text-zinc-300/90 space-y-2">
           <li>Open DayZ → Select Direct Connect.</li>
           <li>
@@ -532,7 +537,7 @@ export default function Page() {
         <div className="mt-6">
           <a
             href={DISCORD_URL}
-            className="inline-block rounded-2xl px-5 py-2 bg-cyan-600/80 hover:bg-cyan-600 transition"
+            className="inline-block rounded-2xl px-5 py-2 bg-[#d31818]/90 hover:bg-[#d31818] transition text-white"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -552,9 +557,9 @@ export default function Page() {
 
       {/* Subtle global accent particles */}
       <div className="pointer-events-none fixed inset-0 -z-10 opacity-20">
-        <div className="absolute top-1/3 left-1/5 size-40 rounded-full bg-fuchsia-500 blur-3xl" />
-        <div className="absolute bottom-10 right-10 size-52 rounded-full bg-cyan-400 blur-3xl" />
+        <div className="absolute top-1/3 left-1/5 size-40 rounded-full bg-[#d31818] blur-3xl" />
+        <div className="absolute bottom-10 right-10 size-52 rounded-full bg-[#ff4d4d] blur-3xl" />
       </div>
-    </>
+    </div>
   );
 }
