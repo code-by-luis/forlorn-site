@@ -34,9 +34,7 @@ const RULE_SECTIONS: RuleSection[] = [
     title: "General",
     items: [
       "Staff reserve the right to ban at their discretion.",
-      "No meta gaming (sharing of sensitive gameplay information)",
       "Gameplay clips must be provided to staff at their request.",
-      "Targeted harrassment and extreme toxicity will result in a permanent ban.",
     ],
   },
   {
@@ -117,6 +115,18 @@ const RULE_SECTIONS: RuleSection[] = [
       "Knowingly benefiting from exploits may result in penalties.",
     ],
   },
+  {
+    title: "Discord & Chat",
+    items: [
+      "Follow Discord's Terms of Service and all applicable laws.",
+      "No hate speech, harassment, threats, or doxxing.",
+      "Shit talk is encouraged, but don't be a dickhead. If staff tell you to drop it, do so.",
+      "No political debates or arguments.",
+      "No metagaming: do not share sensitive or live gameplay information.",
+      "No spam.",
+      "No promotion outside of designated channels."
+    ]
+  }
 ];
 
 // --- Small UI helpers -------------------------------------------------------
