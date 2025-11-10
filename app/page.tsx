@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import type { Variants } from "framer-motion";
 
 const IP = "65.108.9.141:2302";
-const DISCORD_URL = "https://discord.gg/aebqXRM8cM"; // TODO
+const DISCORD_URL = "https://discord.gg/gYm5J3epAU"; //REMEMBER TO UPDATE
 
 // --- Types & Data -----------------------------------------------------------
 
