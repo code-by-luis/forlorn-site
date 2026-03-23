@@ -787,6 +787,7 @@ export default function Page() {
       <h2 className="text-3xl font-bold">Support Forlorn (PENDING BOHEMIA APPROVAL)</h2>
 
       <p className="mt-3 max-w-3xl text-zinc-400">
+        **Until Bohemia approved all payments will be treated as open donations**
         Support Forlorn and help fund hosting, development, moderation, and community events.
         All perks are <span className="font-medium text-zinc-200">cosmetic, community-based, or access-based only</span>.
         We do <span className="font-medium text-zinc-200">not</span> sell gameplay advantages.
