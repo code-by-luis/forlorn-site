@@ -3,11 +3,30 @@
 import { useState, useMemo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import type { Variants } from "framer-motion";
+import Script from "next/script";
 
 const IP = "65.108.9.141:2302";
 const DISCORD_URL = "https://discord.gg/DgxTrH92ds"; //REMEMBER TO UPDATE
 
 // --- Types & Data -----------------------------------------------------------
+
+const PAYPAL_CLIENT_ID =
+  "AYxxyS1Lfz9WpjZDjmVwN83vZUR478Sa2tWhJ3arPVW4y3MW5mlmlXm7MqO201CbPrA1X9fs8gUyBBSG";
+
+const PAYPAL_OPEN_DONATION_URL =
+  "https://www.paypal.com/ncp/payment/7WRG6CMZJMQKS";
+
+const PAYPAL_CLAN_BUNDLE_URL =
+  "https://www.paypal.com/ncp/payment/39EQWSWSMWLLE";
+
+const PAYPAL_BASIC_PLAN_ID = "P-24R90565EC706562NNHAPD6Y";
+const PAYPAL_PRO_PLAN_ID = "P-0HS86465Y7169802KNHAPE3Y";
+
+declare global {
+  interface Window {
+    paypal?: any;
+  }
+}
 
 // Easing curve (cubic-bezier)
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
@@ -268,7 +287,209 @@ function ParallaxBG() {
   );
 }
 
+function PayPalSubscriptionButton({
+  planId,
+  containerId,
+}: {
+  planId: string;
+  containerId: string;
+}) {
+  const [rendered, setRendered] = useState(false);
 
+  const renderButton = () => {
+    if (!window.paypal) return;
+    if (rendered) return;
+
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    window.paypal
+      .Buttons({
+        style: {
+          shape: "rect",
+          color: "gold",
+          layout: "vertical",
+          label: "subscribe",
+        },
+        createSubscription: (_data: unknown, actions: any) => {
+          return actions.subscription.create({
+            plan_id: planId,
+          });
+        },
+        onApprove: (data: any) => {
+          alert(`Subscription created: ${data.subscriptionID}`);
+        },
+      })
+      .render(`#${containerId}`);
+
+    setRendered(true);
+  };
+
+  return (
+    <>
+      <Script
+        src={`https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&vault=true&intent=subscription`}
+        strategy="afterInteractive"
+        onLoad={renderButton}
+      />
+      <div id={containerId} />
+    </>
+  );
+}
+
+function PayPalLinkButton({
+  href,
+  label,
+}: {
+  href: string;
+  label: string;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex h-11 items-center justify-center rounded-xl bg-[#FFD140] px-5 font-bold text-black transition hover:brightness-95"
+    >
+      {label}
+    </a>
+  );
+}
+
+function SupportTierCard({
+  name,
+  price,
+  description,
+  includes,
+  note,
+  featured = false,
+  linkHref,
+  linkLabel,
+  subscriptionPlanId,
+  subscriptionContainerId,
+}: {
+  name: string;
+  price: string;
+  description: string;
+  includes: string[];
+  note?: string;
+  featured?: boolean;
+  linkHref?: string;
+  linkLabel?: string;
+  subscriptionPlanId?: string;
+  subscriptionContainerId?: string;
+}) {
+  return (
+    <motion.div
+      variants={fadeUp}
+      whileHover={{ y: -4 }}
+      transition={{ type: "spring", stiffness: 220, damping: 20 }}
+      className={`rounded-2xl border p-6 backdrop-blur-sm ${
+        featured
+          ? "border-[#ff4d4d]/40 bg-[#d31818]/10 ring-1 ring-[#ff4d4d]/30"
+          : "border-[#d31818]/20 bg-white/5"
+      }`}
+    >
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h3 className="text-xl font-bold text-white">{name}</h3>
+          <p className="mt-1 font-semibold text-[#ff6b6b]">{price}</p>
+        </div>
+        {featured ? <Pill>Most Popular</Pill> : null}
+      </div>
+
+      <p className="mt-4 text-sm leading-relaxed text-zinc-300/90">
+        {description}
+      </p>
+
+      <ul className="mt-5 space-y-2">
+        {includes.map((item) => (
+          <li
+            key={item}
+            className="rounded-xl border border-[#d31818]/15 bg-black/20 px-3 py-2 text-sm text-zinc-300/90"
+          >
+            {item}
+          </li>
+        ))}
+      </ul>
+
+      {note ? (
+        <p className="mt-4 text-xs italic text-zinc-400">{note}</p>
+      ) : null}
+
+      <div className="mt-6">
+        {subscriptionPlanId && subscriptionContainerId ? (
+          <PayPalSubscriptionButton
+            planId={subscriptionPlanId}
+            containerId={subscriptionContainerId}
+          />
+        ) : linkHref && linkLabel ? (
+          <PayPalLinkButton href={linkHref} label={linkLabel} />
+        ) : null}
+      </div>
+    </motion.div>
+  );
+}
+
+const SUPPORT_TIERS = [
+  {
+    name: "Open Donation",
+    price: "Any amount",
+    description:
+      "Make a one-time contribution of any amount. Donor perks are awarded once lifetime donations reach £4.99.",
+    includes: [
+      "Donor role in Discord",
+      "Access to the donor channel",
+      "Name featured on the in-game supporter wall",
+    ],
+    linkHref: PAYPAL_OPEN_DONATION_URL,
+    linkLabel: "Donate",
+  },
+  {
+    name: "Forlorn Basic",
+    price: "£4.99 / month",
+    description:
+      "Monthly support tier for regular players who want to support the server and receive cosmetic perks.",
+    includes: [
+      "Everything in Open Donation",
+      "Access to community polls",
+      "1 cosmetic item per month",
+    ],
+    subscriptionPlanId: PAYPAL_BASIC_PLAN_ID,
+    subscriptionContainerId: "paypal-basic-button",
+  },
+  {
+    name: "Forlorn Pro",
+    price: "£9.99 / month",
+    description:
+      "Best for active players who want priority queue access and additional cosmetic perks.",
+    includes: [
+      "Everything in Forlorn Basic",
+      "Priority queue access",
+      "2 cosmetic items per month",
+    ],
+    subscriptionPlanId: PAYPAL_PRO_PLAN_ID,
+    subscriptionContainerId: "paypal-pro-button",
+    featured: true,
+  },
+  {
+    name: "Clan Bundle",
+    price: "£14.99 one-time",
+    description:
+      "A one-time cosmetic package for clans wanting a shared identity in the community.",
+    includes: [
+      "1 custom weapon skin",
+      "1 custom clothing set",
+      "Clan badge role in Discord",
+      "Clan logo integration for Discord badge",
+    ],
+    note: "Logo must be provided by the purchaser.",
+    linkHref: PAYPAL_CLAN_BUNDLE_URL,
+    linkLabel: "Buy Clan Bundle",
+  },
+];
 
 // --- Page -------------------------------------------------------------------
 
@@ -299,6 +520,7 @@ export default function Page() {
             <a href="#about" className="hover:text-[#ff6b6b]">About</a>
             <a href="#rules" className="hover:text-[#ff6b6b]">Rules</a>
             <a href="#features" className="hover:text-[#ff6b6b]">Features</a>
+            <a href="#support" className="hover:text-[#ff6b6b]">Support</a>
             <a href="#join" className="hover:text-[#ff6b6b]">Join</a>
           </div>
         </nav>
@@ -531,6 +753,59 @@ export default function Page() {
           />
         </div>
       </AnimatedSection>
+
+      <SectionDivider />
+
+
+    <AnimatedSection id="support" className="relative mx-auto max-w-6xl px-4 py-24">
+      <h2 className="text-3xl font-bold">Support Forlorn</h2>
+
+      <p className="mt-3 max-w-3xl text-zinc-400">
+        Support Forlorn and help fund hosting, development, moderation, and community events.
+        All perks are <span className="font-medium text-zinc-200">cosmetic, community-based, or access-based only</span>.
+        We do <span className="font-medium text-zinc-200">not</span> sell gameplay advantages.
+      </p>
+
+      <div className="mt-4 rounded-2xl border border-[#d31818]/20 bg-white/5 p-5 text-sm text-zinc-300/90">
+        <p>
+          All players are treated equally regardless of their donation status. Do not expect special privileges.
+        </p>
+        <p className="mt-3">
+          Supporter perks remain part of the Forlorn server experience and do not grant ownership of any
+          digital items or services. Access to perks may be removed or restricted at any time in line with
+          server rules and moderation decisions. Players who are banned or permanently removed from the
+          community will lose access to all supporter perks.
+        </p>
+      </div>
+
+      <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        {SUPPORT_TIERS.map((tier) => (
+          <SupportTierCard
+            key={tier.name}
+            name={tier.name}
+            price={tier.price}
+            description={tier.description}
+            includes={tier.includes}
+            note={tier.note}
+            featured={tier.featured}
+            linkHref={tier.linkHref}
+            linkLabel={tier.linkLabel}
+            subscriptionPlanId={tier.subscriptionPlanId}
+            subscriptionContainerId={tier.subscriptionContainerId}
+          />
+        ))}
+      </div>
+
+      <div className="mt-8 rounded-2xl border border-[#d31818]/20 bg-black/20 p-5 text-sm text-zinc-400">
+        <p className="font-medium text-zinc-200">Store Notice</p>
+        <p className="mt-2">
+          All purchases support the upkeep and growth of the server. We do not sell weapons,
+          ammunition, vehicles, building materials, in-game currency, progression boosts,
+          base advantages, or any other gameplay-affecting items.
+        </p>
+      </div>
+    </AnimatedSection>
+
 
       <SectionDivider />
 
