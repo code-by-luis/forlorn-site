@@ -784,7 +784,7 @@ export default function Page() {
 
 
     <AnimatedSection id="support" className="relative mx-auto max-w-6xl px-4 py-24">
-      <h2 className="text-3xl font-bold">Support Forlorn</h2>
+      <h2 className="text-3xl font-bold">Support Forlorn (PENDING BOHEMIA APPROVAL)</h2>
 
       <p className="mt-3 max-w-3xl text-zinc-400">
         Support Forlorn and help fund hosting, development, moderation, and community events.
