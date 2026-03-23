@@ -22,9 +22,41 @@ const PAYPAL_CLAN_BUNDLE_URL =
 const PAYPAL_BASIC_PLAN_ID = "P-24R90565EC706562NNHAPD6Y";
 const PAYPAL_PRO_PLAN_ID = "P-0HS86465Y7169802KNHAPE3Y";
 
+type PayPalSubscriptionData = {
+  subscriptionID: string;
+};
+
+type PayPalSubscriptionActions = {
+  subscription: {
+    create: (options: { plan_id: string }) => Promise<string>;
+  };
+};
+
+type PayPalButtonsOptions = {
+  style: {
+    shape: "rect";
+    color: "gold";
+    layout: "vertical";
+    label: "subscribe";
+  };
+  createSubscription: (
+    data: Record<string, never>,
+    actions: PayPalSubscriptionActions
+  ) => Promise<string>;
+  onApprove: (data: PayPalSubscriptionData) => void;
+};
+
+type PayPalButtonsInstance = {
+  render: (selector: string) => Promise<void>;
+};
+
+type PayPalNamespace = {
+  Buttons: (options: PayPalButtonsOptions) => PayPalButtonsInstance;
+};
+
 declare global {
   interface Window {
-    paypal?: any;
+    paypal?: PayPalNamespace;
   }
 }
 
@@ -313,12 +345,15 @@ function PayPalSubscriptionButton({
           layout: "vertical",
           label: "subscribe",
         },
-        createSubscription: (_data: unknown, actions: any) => {
+        createSubscription: (
+          _data: Record<string, never>,
+          actions: PayPalSubscriptionActions
+        ) => {
           return actions.subscription.create({
             plan_id: planId,
           });
         },
-        onApprove: (data: any) => {
+        onApprove: (data: PayPalSubscriptionData) => {
           alert(`Subscription created: ${data.subscriptionID}`);
         },
       })
