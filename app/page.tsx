@@ -509,8 +509,7 @@ const SUPPORT_TIERS = [
     includes: [
       "1 custom weapon skin",
       "1 custom clothing set",
-      "Clan badge role in Discord",
-      "Clan logo integration for Discord badge",
+      "Clan badge role in Discord"
     ],
     note: "Logo must be provided by the purchaser.",
     linkHref: PAYPAL_CLAN_BUNDLE_URL,
