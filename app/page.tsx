@@ -399,7 +399,6 @@ function SupportTierCard({
   description,
   includes,
   note,
-  featured = false,
   linkHref,
   linkLabel,
   subscriptionPlanId,
@@ -410,7 +409,6 @@ function SupportTierCard({
   description: string;
   includes: string[];
   note?: string;
-  featured?: boolean;
   linkHref?: string;
   linkLabel?: string;
   subscriptionPlanId?: string;
@@ -421,18 +419,13 @@ function SupportTierCard({
       variants={fadeUp}
       whileHover={{ y: -4 }}
       transition={{ type: "spring", stiffness: 220, damping: 20 }}
-      className={`rounded-2xl border p-6 backdrop-blur-sm ${
-        featured
-          ? "border-[#ff4d4d]/40 bg-[#d31818]/10 ring-1 ring-[#ff4d4d]/30"
-          : "border-[#d31818]/20 bg-white/5"
-      }`}
+      className="rounded-2xl border border-[#d31818]/20 bg-white/5 p-6 backdrop-blur-sm"
     >
       <div className="flex items-start justify-between gap-4">
         <div>
           <h3 className="text-xl font-bold text-white">{name}</h3>
           <p className="mt-1 font-semibold text-[#ff6b6b]">{price}</p>
         </div>
-        {featured ? <Pill>Most Popular</Pill> : null}
       </div>
 
       <p className="mt-4 text-sm leading-relaxed text-zinc-300/90">
@@ -507,7 +500,6 @@ const SUPPORT_TIERS = [
     ],
     subscriptionPlanId: PAYPAL_PRO_PLAN_ID,
     subscriptionContainerId: "paypal-pro-button",
-    featured: true,
   },
   {
     name: "Clan Bundle",
@@ -822,7 +814,6 @@ export default function Page() {
             description={tier.description}
             includes={tier.includes}
             note={tier.note}
-            featured={tier.featured}
             linkHref={tier.linkHref}
             linkLabel={tier.linkLabel}
             subscriptionPlanId={tier.subscriptionPlanId}
