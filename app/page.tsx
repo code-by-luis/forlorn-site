@@ -784,13 +784,13 @@ export default function Page() {
 
 
     <AnimatedSection id="support" className="relative mx-auto max-w-6xl px-4 py-24">
-      <h2 className="text-3xl font-bold">Support Forlorn (PENDING BOHEMIA APPROVAL)</h2>
+      <h2 className="text-3xl font-bold">Support Forlorn
+      </h2>
 
       <p className="mt-3 max-w-3xl text-zinc-400">
         **Any custom skins deemed to give a gameplay advantage (eg. camo) must be publicly accessible for all non-donating players.**
         Support Forlorn and help fund hosting, development, moderation, and community events.
         All perks are <span className="font-medium text-zinc-200">cosmetic, community-based, or access-based only</span>.
-        We do <span className="font-medium text-zinc-200">not</span> sell gameplay advantages.
       </p>
 
       <div className="mt-4 rounded-2xl border border-[#d31818]/20 bg-white/5 p-5 text-sm text-zinc-300/90">
