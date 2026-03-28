@@ -108,9 +108,8 @@ const RULE_SECTIONS: RuleSection[] = [
   {
     title: "Squad",
     items: [
-      "6 people can be in a group at one time.",
+      "8 people can be in a group at one time.",
       "All members must wear a [TAG] in their name (see guides for how-to).",
-      "Squads must not team up together to gain an advantage on other squads.",
       "Players cannot switch groups or territories. Changing teams is OK but not back and forth.",
     ],
   },
