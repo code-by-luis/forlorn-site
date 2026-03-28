@@ -147,7 +147,7 @@ const RULE_SECTIONS: RuleSection[] = [
       "One base per team  (excluding raidbase).",
       "No glitch bases or unreachable stashes (exploits = removal).",
       "Do not block high-value spawns, military access, or map choke points.",
-      "Maximum of 10 codelocked entries per base (excluding windows.)",
+      "Maximum of 15 codelocked entries per base (excluding windows.)",
       "Maximum of 4 codelocked windows as entry points.",
       "No building during a raid, you must wait until 30 minutes after a C4 or sledgehammer to rebuild.",
       "No forcing raiders into animations.",
