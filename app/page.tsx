@@ -654,7 +654,7 @@ export default function Page() {
             <motion.div variants={fadeUp} className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-3">
               <Stat label="Loot Rate" value="High" />
               <Stat label="Raiding Window" value="Fri–Sun" />
-              <Stat label="Squad Size" value="6" />
+              <Stat label="Squad Size" value="8" />
             </motion.div>
 
             <motion.ul variants={fadeUp} className="mt-8 grid sm:grid-cols-2 gap-2 text-sm">
